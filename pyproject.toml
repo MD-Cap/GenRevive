@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "genrevive-migrator-adf2spring"
+version = "0.1.0"
+authors = ["Xinni Wang"]
+description = "GenRevive Migrator for Oracle ADF to Spring."
+
+[tool.poetry.dependencies]
+python = ">=3.10,<=3.13"
+python-dotenv = "1.0.0"
+docker = "^7.0.0"
+sqlparse = "0.5.0"
+testcontainers = "^4.4.1"
+oracledb = "^2.2.0"
+javalang = "0.13.0"
+#
+genrevive = { path = "../genrevive", develop = false }
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.m
+juseLibraryCodeForTypes = true
+exclude = [".cache"]
+
+
+[tool.ruff]
+# https://beta. ruff. irs/docs/configuration/
+select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
+ignore = ['W291', 'W292', 'W293']
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

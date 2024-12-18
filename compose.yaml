@@ -1,0 +1,33 @@
+services:
+
+  migrator:
+    image: adf2springmigrator:0.0.1
+    build:
+      context: .
+      additional_contexts:
+        genrevive: ${LOCAL_GENREVIVE_PATH}
+    container_name: migrator
+    env_file: .env
+    environment:
+      ORACLE_URL: oracle-db:1521/XEPDB1
+      ORACLE_USERNAME: SYSTEM
+    volumes:
+      - ${LOCAL_SPRINGBOOT_PROJECT_PATH}:/${SPRINGBOOT_PROJECT_PATH}
+      - ${LOCAL_ADF_PROJECT_PATH}:${ADF_PROJECT_PATH}
+    networks:
+      - commonnetwork
+
+  oracledb:
+    image: gvenzl/oracle-xe:21.3.0-slim-faststart
+    container_name: oracle-db
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD}
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    networks:
+      - commonnetwork
+
+networks:
+  commonnetwork:
+
